@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode (Warm Ivory) */
+    --background: 40 20% 97%;
+    --foreground: 20 15% 12%;
+    --card: 40 20% 99%;
+    --primary: 25 95% 60%; /* Signal Amber */
+    --border: 40 10% 90%;
+    --muted: 40 10% 50%;
+  }
+
+  .dark {
+    /* Dark Mode (Warm Obsidian) */
+    --background: 20 14% 8%;
+    --foreground: 30 10% 92%;
+    --card: 20 14% 10%;
+    --primary: 25 95% 60%; /* Signal Amber */
+    --border: 20 10% 15%;
+    --muted: 20 10% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(180deg, hsl(30 10% 92%) 0%, hsl(30 10% 60%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .text-gradient {
+    background: linear-gradient(180deg, hsl(30 10% 95%) 0%, hsl(30 10% 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* ATS / Print Optimization */
+  @media print {
+    .dark { --background: 0 0% 100%; --foreground: 0 0% 0%; }
+    body { -webkit-print-color-adjust: exact; color-adjust: exact; }
+    .no-print { display: none !important; }
+    article { break-inside: avoid; }
+  }
+}
