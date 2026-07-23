@@ -28,7 +28,7 @@ export function Hero() {
                         </p>
 
                         <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                            <a href="#projects" className="group relative inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-background bg-foreground rounded-md hover:bg-primary transition-colors duration-300">
+                            <a href="#featured-projects" className="group relative inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-background bg-foreground rounded-md hover:bg-primary transition-colors duration-300">
                                 Explore Ventures
                                 <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                             </a>
