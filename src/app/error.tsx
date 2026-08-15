@@ -1,21 +1,34 @@
 "use client";
 import { useEffect } from "react";
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
+export default function Error({
+    error,
+    reset,
+}: {
+    error: Error & { digest?: string };
+    reset: () => void;
+}) {
+    useEffect(() => {
+        console.error(error);
+    }, [error]);
 
-  return (
-    <div className="fixed inset-0 bg-background flex flex-col items-center justify-center gap-4 px-4 text-center">
-      <h2 className="text-2xl font-bold text-foreground">System Malfunction</h2>
-      <p className="text-muted-foreground max-w-md">An unexpected error occurred while rendering this section.</p>
-      <button
-        onClick={reset}
-        className="px-4 py-2 mt-4 text-sm font-medium text-background bg-foreground rounded-md hover:bg-primary/90"
-      >
-        Attempt Recovery
-      </button>
-    </div>
-  );
+    return (
+        <div className="container flex min-h-[70svh] flex-col items-center justify-center py-24 text-center">
+            <p className="eyebrow text-amber-ink">Runtime error</p>
+            <h1 className="display mt-5 text-display-md text-etched">Something failed to render.</h1>
+            <p className="mt-5 max-w-md text-fg-muted">
+                An unexpected error occurred while building this view. Retrying re-renders the section.
+            </p>
+            {error.digest && (
+                <p className="mt-4 font-mono text-xs text-fg-subtle">Digest: {error.digest}</p>
+            )}
+            <button
+                type="button"
+                onClick={reset}
+                className="mt-9 inline-flex h-11 items-center rounded-[var(--radius)] bg-fg px-5 text-sm font-medium text-bg transition-colors hover:bg-primary hover:text-primary-fg"
+            >
+                Try again
+            </button>
+        </div>
+    );
 }

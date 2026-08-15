@@ -1,56 +1,105 @@
-"use client";
-import { motion } from "framer-motion";
 import { trajectory } from "@/content/trajectory";
+import { sections } from "@/content/site";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { StatusDot } from "@/components/ui/StatusStrip";
+import { ConcurrencyChart } from "./ConcurrencyChart";
+import { ACCENTS } from "@/lib/accents";
+import { cn } from "@/lib/utils";
 
 export function Trajectory() {
     return (
-        <section id="trajectory" className="container max-w-5xl px-4 py-24 md:py-32 border-t border-border/40">
-            <div className="mb-16 md:mb-24">
-                <span className="font-mono text-sm text-primary tracking-wider">04. TIMELINE</span>
-                <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">Career Trajectory</h2>
-            </div>
+        <section
+            id={sections.trajectory}
+            aria-labelledby="trajectory-heading"
+            className="border-t border-border band-amber"
+        >
+            <div className="container stack-gap">
+                <SectionHeader
+                    index="06"
+                    label="Trajectory"
+                    title={<span id="trajectory-heading">Research and ventures, in parallel.</span>}
+                    lede="Three concurrent tracks — which is where the mix of research rigour and operating experience comes from."
+                />
 
-            <div className="relative border-l border-border/50 ml-4 md:ml-6 space-y-16">
-                {trajectory.map((item, index) => (
-                    <motion.div
-                        key={item.role + item.company}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative pl-8 md:pl-12"
-                    >
-                        <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-background" />
+                <Reveal className="mb-16">
+                    <ConcurrencyChart />
+                </Reveal>
 
-                        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2 gap-2 md:gap-4">
-                            <h3 className="text-xl md:text-2xl font-bold text-foreground">
-                                {item.role} <span className="text-primary">@ {item.company}</span>
-                            </h3>
-                            <span className="text-sm font-mono text-muted-foreground whitespace-nowrap">
-                                {item.period}
-                            </span>
-                        </div>
+                <ol className="relative">
+                    {/* Spine */}
+                    <span
+                        aria-hidden="true"
+                        className="absolute left-[7px] top-3 bottom-3 w-px bg-border md:left-[calc(11rem+7px)]"
+                    />
 
-                        <div className="text-sm text-muted-foreground mb-4">
-                            {item.location}
-                        </div>
+                    {trajectory.map((item, i) => {
+                        const accent = ACCENTS[item.accent];
+                        return (
+                        <Reveal as="li" key={`${item.role}-${item.company}`} delay={i * 80} className="relative">
+                            <div className="grid gap-x-8 gap-y-3 py-8 md:grid-cols-[11rem_1fr] md:py-10">
+                                {/* Period rail */}
+                                <div className="md:text-right">
+                                    <p className="font-mono text-xs text-fg-subtle md:pr-8">{item.period}</p>
+                                    <p className={cn("mt-1 font-mono text-[10px] uppercase tracking-[0.12em] md:pr-8", accent.text)}>
+                                        {item.kind}
+                                    </p>
+                                </div>
 
-                        <p className="text-muted-foreground leading-relaxed max-w-3xl mb-6">
-                            {item.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-2">
-                            {item.tags.map(tag => (
+                                {/* Node */}
                                 <span
-                                    key={tag}
-                                    className="px-2.5 py-1 text-xs font-medium rounded bg-secondary text-secondary-foreground"
+                                    aria-hidden="true"
+                                    className="absolute left-0 top-[2.15rem] grid h-[15px] w-[15px] place-items-center rounded-full border border-border-strong bg-bg md:left-[11rem]"
                                 >
-                                    {tag}
+                                    <span className={cn("h-1.5 w-1.5 rounded-full", accent.dot)} />
                                 </span>
-                            ))}
-                        </div>
-                    </motion.div>
-                ))}
+
+                                <div className="pl-8 md:pl-8">
+                                    <h3 className="text-lg font-medium text-fg md:text-xl">
+                                        {item.role}
+                                        <span className="text-fg-subtle"> · </span>
+                                        <span className={accent.text}>{item.company}</span>
+                                    </h3>
+
+                                    <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-fg-subtle">
+                                        <span>{item.location}</span>
+                                        {item.current && (
+                                            <span className="inline-flex items-center gap-1.5 text-emerald-ink">
+                                                <StatusDot />
+                                                Current
+                                            </span>
+                                        )}
+                                    </p>
+
+                                    <p className="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-fg-muted">
+                                        {item.description}
+                                    </p>
+
+                                    <ul className="mt-4 space-y-1.5">
+                                        {item.responsibilities.map((r) => (
+                                            <li key={r} className="flex gap-2.5 text-[0.8125rem] text-fg-muted">
+                                                <span aria-hidden="true" className={cn("mt-2 h-px w-2.5 shrink-0", accent.dot)} />
+                                                {r}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <ul className="mt-5 flex flex-wrap gap-1.5">
+                                        {item.tags.map((tag) => (
+                                            <li
+                                                key={tag}
+                                                className="rounded-[var(--radius-sm)] border border-border bg-surface px-2.5 py-1 font-mono text-[11px] text-fg-subtle"
+                                            >
+                                                {tag}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </Reveal>
+                        );
+                    })}
+                </ol>
             </div>
         </section>
     );

@@ -1,34 +1,33 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
-import { TechnicalArsenal } from "@/components/sections/TechnicalArsenal";
-import { EngineeringPulse } from "@/components/sections/EngineeringPulse";
-import { Trajectory } from "@/components/sections/Trajectory";
-import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { Principles } from "@/components/sections/Principles";
+import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { NeuroFusionCaseStudy } from "@/components/sections/NeuroFusionCaseStudy";
-import { HafeezCaseStudy } from "@/components/sections/HafeezCaseStudy";
-import { Experiments } from "@/components/sections/experiments";
-import { AvailabilityDashboard } from "@/components/sections/AvailabilityDashboard";
+import { EvinicCaseStudy } from "@/components/sections/EvinicCaseStudy";
+import { Lab } from "@/components/sections/Lab";
+import { TechnicalDepth } from "@/components/sections/TechnicalDepth";
+import { Trajectory } from "@/components/sections/Trajectory";
+import { BuildLog } from "@/components/sections/BuildLog";
 import { Contact } from "@/components/sections/Contact";
 
+/**
+ * Reading order: statement → evidence → detail → interaction → next statement.
+ * Each case study follows the index that introduces it.
+ */
 export default function Home() {
     return (
-        <main className="flex flex-col">
+        <>
             <Hero />
             <About />
-            <TechnicalArsenal />
-            <EngineeringPulse />
-            <Trajectory />
-            <FeaturedProjects />
-
-            {/* Detailed Case Studies */}
+            <Principles />
+            <FeaturedWork />
             <NeuroFusionCaseStudy />
-            <HafeezCaseStudy />
-
-            {/* New Archive Section */}
-            <Experiments />
-
-            <AvailabilityDashboard />
+            <EvinicCaseStudy />
+            <Lab />
+            <TechnicalDepth />
+            <Trajectory />
+            <BuildLog />
             <Contact />
-        </main>
+        </>
     );
 }

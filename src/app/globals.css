@@ -2,25 +2,141 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   ZAIMAL.OS — Design tokens
+   Identity: "Obsidian Lab" — research instrument meets studio.
+   Dark is the primary experience; light is designed, not inverted.
+   All colours are raw HSL triplets so Tailwind's <alpha-value> works.
+   ============================================================ */
+
 @layer base {
   :root {
-    /* Light Mode (Warm Ivory) */
-    --background: 40 20% 97%;
-    --foreground: 20 15% 12%;
-    --card: 40 20% 99%;
-    --primary: 25 95% 60%; /* Signal Amber */
-    --border: 40 10% 90%;
-    --muted: 40 10% 50%;
+    /* --- Light: cool paper, not warm ivory ---
+       The page sits slightly below pure white so raised surfaces read as
+       raised rather than merging into the background. */
+    /* The page sits further below white so raised surfaces separate clearly
+       and accent colours have something to read against. */
+    --bg: 220 28% 93%;
+    --bg-deep: 220 26% 89%;
+    --surface: 0 0% 100%;
+    --surface-2: 220 40% 98%;
+    --elevated: 0 0% 100%;
+
+    --fg: 222 45% 9%;
+    /* Both clear 4.5:1 on --bg so micro-labels stay legible at 10-11px.
+       Darkened when --bg moved from 96% to 93%: a deeper page reduces contrast
+       for dark text, and fg-subtle was already sitting close to the line. */
+    --fg-muted: 220 14% 31%;
+    --fg-subtle: 220 12% 39%;
+
+    /* Strengthened — at 89%/80% the structure was nearly invisible on paper. */
+    --border: 220 18% 84%;
+    --border-strong: 220 16% 66%;
+
+    /* A true, saturated azure rather than the muted teal it used to be —
+       at this lightness it reads as an interactive colour on paper, not as
+       body text. The dark theme keeps its brighter cyan. */
+    --primary: 214 98% 38%;
+    --primary-fg: 0 0% 100%;
+    --primary-soft: 214 92% 48%;
+
+    /* Two jobs, two tokens. The plain token is vivid and used for dots, bars,
+       borders and fills (UI graphics only need 3:1). The `-ink` variant is the
+       darker one, used only where the colour becomes small text and has to
+       clear 4.5:1. Forcing one value to do both is what made these muddy. */
+    --signal-emerald: 158 88% 34%;
+    --signal-emerald-ink: 160 92% 23%;
+    --signal-amber: 32 100% 44%;
+    --signal-amber-ink: 26 100% 31%;
+    --signal-rose: 349 88% 48%;
+    --signal-rose-ink: 349 82% 38%;
+    --signal-violet: 264 85% 58%;
+    --signal-violet-ink: 266 82% 41%;
+    --signal-cyan: 190 96% 38%;
+    --signal-cyan-ink: 194 96% 23%;
+
+    --ring: 214 98% 45%;
+    --selection: 214 98% 42%;
+    --selection-fg: 0 0% 100%;
+
+    --grid-line: 220 20% 70%;
+    --glow: 214 96% 52%;
+
+    /* --- Non-colour scales --- */
+    --radius-sm: 0.375rem;
+    --radius: 0.625rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.375rem;
+
+    /* Layered rather than a single blur — reads as physical depth */
+    --shadow-sm: 0 1px 2px hsl(222 45% 9% / 0.05), 0 1px 1px hsl(222 45% 9% / 0.03);
+    --shadow: 0 2px 4px hsl(222 45% 9% / 0.04), 0 8px 24px -6px hsl(222 45% 9% / 0.10);
+    --shadow-lg: 0 4px 8px hsl(222 45% 9% / 0.04), 0 28px 64px -20px hsl(222 45% 9% / 0.20);
+
+    /* Grain strength. Tune here — nothing else references these values. */
+    --grain-opacity: 0.015;
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-fast: 140ms;
+    --dur: 260ms;
+    --dur-slow: 620ms;
+
+    --nav-h: 3.75rem;
+
+    color-scheme: light;
   }
 
   .dark {
-    /* Dark Mode (Warm Obsidian) */
-    --background: 20 14% 8%;
-    --foreground: 30 10% 92%;
-    --card: 20 14% 10%;
-    --primary: 25 95% 60%; /* Signal Amber */
-    --border: 20 10% 15%;
-    --muted: 20 10% 60%;
+    /* --- Dark: obsidian with a cold blue undertone --- */
+    /* Deeper page, lighter surfaces — widens the gap between ground and panel
+       so colour reads more vividly against it. */
+    --bg: 226 52% 3%;
+    --bg-deep: 228 55% 2%;
+    --surface: 223 32% 9%;
+    --surface-2: 223 28% 12%;
+    --elevated: 222 26% 15%;
+
+    --fg: 210 32% 96%;
+    /* Both clear 4.5:1 on --bg so micro-labels stay legible at 10-11px. */
+    --fg-muted: 216 18% 74%;
+    --fg-subtle: 217 14% 60%;
+
+    /* Strengthened so panel edges and rules actually read on near-black. */
+    --border: 220 20% 21%;
+    --border-strong: 219 18% 35%;
+
+    --primary: 197 94% 58%;
+    --primary-fg: 224 44% 5%;
+    --primary-soft: 197 80% 44%;
+
+    /* On near-black the vivid values already clear 4.5:1, so ink == vivid. */
+    --signal-emerald: 158 74% 55%;
+    --signal-emerald-ink: 158 74% 55%;
+    --signal-amber: 38 98% 64%;
+    --signal-amber-ink: 38 98% 64%;
+    --signal-rose: 349 90% 70%;
+    --signal-rose-ink: 349 90% 70%;
+    --signal-violet: 266 95% 76%;
+    --signal-violet-ink: 266 95% 76%;
+    --signal-cyan: 186 92% 60%;
+    --signal-cyan-ink: 186 92% 60%;
+
+    --ring: 197 94% 58%;
+    --selection: 197 94% 58%;
+    --selection-fg: 224 44% 5%;
+
+    --grid-line: 210 40% 60%;
+    --glow: 197 94% 58%;
+
+    --shadow-sm: 0 1px 2px hsl(226 60% 1% / 0.6);
+    --shadow: 0 2px 4px hsl(226 60% 1% / 0.4), 0 10px 30px -8px hsl(226 60% 1% / 0.7);
+    --shadow-lg: 0 4px 10px hsl(226 60% 1% / 0.5), 0 36px 84px -26px hsl(226 60% 1% / 0.85);
+
+    /* Grain reads stronger against near-black, so it sits lower than in light */
+    --grain-opacity: 0.009;
+
+    color-scheme: dark;
   }
 }
 
@@ -28,30 +144,580 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
-  }
-  
-  .text-gradient {
-    background: linear-gradient(180deg, hsl(30 10% 92%) 0%, hsl(30 10% 60%) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
   }
 
-  .dark .text-gradient {
-    background: linear-gradient(180deg, hsl(30 10% 95%) 0%, hsl(30 10% 50%) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Anchor targets clear the fixed nav without JS scroll hijacking */
+  section[id],
+  [data-anchor] {
+    scroll-margin-top: calc(var(--nav-h) + 1.5rem);
   }
-  
-  /* ATS / Print Optimization */
+
+  body {
+    @apply bg-bg text-fg antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "cv05" 1;
+    text-rendering: optimizeLegibility;
+    /* Respect notches / gesture bars on mobile */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    overflow-x: hidden;
+  }
+
+  /* Film grain. Fixed, non-interactive, and beneath the nav/overlay layers so
+     it textures the content without touching UI chrome. One inline SVG, no
+     image request, no repaint cost after the first composite. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    /* Fine grain: a high baseFrequency keeps the noise tight, and dropping to
+       two octaves removes the low-frequency component that made it blotchy. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Paragraphs break on sense rather than leaving orphans */
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: hsl(var(--selection));
+    color: hsl(var(--selection-fg));
+  }
+
+  /* Visible, consistent focus ring — never removed */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Numeric data should align in columns */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Scrollbar — quiet, themed */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border-strong)) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border-strong));
+    border-radius: 999px;
+    border: 3px solid hsl(var(--bg));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--fg-subtle));
+  }
+}
+
+@layer components {
+  /* ---- Editorial display type ------------------------------ */
+  /* Size-specific tracking and leading come from the text-display-* utilities,
+     so this only carries what is constant across the scale. */
+  .display {
+    font-weight: 560;
+    text-wrap: balance;
+    font-feature-settings: "ss01" 1, "cv05" 1, "kern" 1;
+  }
+
+  .eyebrow {
+    @apply font-mono uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.185em;
+    line-height: 1;
+    /* Caps sit optically low against lowercase neighbours */
+    padding-right: 0.185em;
+  }
+
+  /* Reads as engraved metal rather than glowing neon */
+  .text-etched {
+    color: hsl(var(--fg));
+  }
+  /* Only clip the gradient to the glyphs where that is actually supported —
+     otherwise the transparent fill would erase the headline. */
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .text-etched {
+      background: linear-gradient(
+        178deg,
+        hsl(var(--fg)) 8%,
+        hsl(var(--fg) / 0.72) 62%,
+        hsl(var(--fg) / 0.52) 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+  }
+
+  /* ---- Surfaces -------------------------------------------- */
+  .panel {
+    @apply rounded-[var(--radius-lg)] border border-border bg-surface;
+  }
+
+  /* Cards that respond to pointer: the border warms and the card lifts by a
+     single pixel. Transform-only, so it never triggers layout. */
+  .lift {
+    transition:
+      transform var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+      transform: translate3d(0, -2px, 0);
+      box-shadow: var(--shadow);
+    }
+  }
+  .lift:focus-within {
+    box-shadow: var(--shadow);
+  }
+
+  /* A hairline that catches light along the top edge of raised surfaces */
+  .edge-light {
+    position: relative;
+  }
+  .edge-light::before {
+    content: "";
+    position: absolute;
+    inset-inline: 1px;
+    top: 0;
+    height: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--fg) / 0.14),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .hairline {
+    @apply border-t border-border;
+  }
+
+  /* ---- Inverted instrument panel ---------------------------
+     Diagrams and dashboards render dark in BOTH themes: against the light
+     page it is the strongest focal point on screen, and against the dark page
+     it still sits above the ground (surface 9% vs page 3%).
+
+     It works by re-scoping the colour tokens to the dark palette, so every
+     utility inside (text-fg, border-border, the accent hues) resolves to its
+     dark-theme value automatically — no per-element overrides. */
+  .panel-invert {
+    --bg: 226 52% 3%;
+    --bg-deep: 228 55% 2%;
+    --surface: 223 32% 9%;
+    --surface-2: 223 28% 13%;
+    --elevated: 222 26% 16%;
+
+    --fg: 210 32% 96%;
+    --fg-muted: 216 18% 74%;
+    --fg-subtle: 217 14% 62%;
+
+    --border: 220 20% 22%;
+    --border-strong: 219 18% 36%;
+
+    --primary: 197 94% 58%;
+    --primary-fg: 224 44% 5%;
+
+    --signal-emerald: 158 74% 55%;
+    --signal-emerald-ink: 158 74% 55%;
+    --signal-amber: 38 98% 64%;
+    --signal-amber-ink: 38 98% 64%;
+    --signal-rose: 349 90% 70%;
+    --signal-rose-ink: 349 90% 70%;
+    --signal-violet: 266 95% 76%;
+    --signal-violet-ink: 266 95% 76%;
+    --signal-cyan: 186 92% 60%;
+    --signal-cyan-ink: 186 92% 60%;
+
+    background-color: hsl(var(--surface));
+    color: hsl(var(--fg));
+    border-color: hsl(var(--border));
+  }
+
+  /* Same trap as .resume-sheet: element-scoped tokens beat the :root print
+     overrides, so they must be flattened here too. */
   @media print {
-    .dark { --background: 0 0% 100%; --foreground: 0 0% 0%; }
-    body { -webkit-print-color-adjust: exact; color-adjust: exact; }
-    .no-print { display: none !important; }
-    article { break-inside: avoid; }
+    .panel-invert {
+      --surface: 0 0% 100%;
+      --surface-2: 0 0% 100%;
+      --fg: 0 0% 0%;
+      --fg-muted: 0 0% 22%;
+      --fg-subtle: 0 0% 38%;
+      --border: 0 0% 72%;
+      --border-strong: 0 0% 45%;
+      --primary: 0 0% 0%;
+      --signal-emerald: 0 0% 0%;
+      --signal-emerald-ink: 0 0% 0%;
+      --signal-amber: 0 0% 0%;
+      --signal-amber-ink: 0 0% 0%;
+      --signal-rose: 0 0% 0%;
+      --signal-rose-ink: 0 0% 0%;
+      --signal-violet: 0 0% 0%;
+      --signal-violet-ink: 0 0% 0%;
+      --signal-cyan: 0 0% 0%;
+      --signal-cyan-ink: 0 0% 0%;
+      background-color: #fff;
+      color: #000;
+    }
+  }
+
+  /* The resume renders as a paper sheet in both themes, so the screen is an
+     accurate preview of the printed page. Re-scoping the tokens (rather than
+     hardcoding colours) means every text utility inside resolves to the light
+     palette automatically. */
+  .resume-sheet {
+    --bg: 0 0% 100%;
+    --bg-deep: 0 0% 100%;
+    --surface: 0 0% 100%;
+    --surface-2: 220 20% 98%;
+    --fg: 222 47% 11%;
+    --fg-muted: 220 14% 30%;
+    --fg-subtle: 220 12% 40%;
+    --border: 220 14% 84%;
+    --border-strong: 220 14% 70%;
+    --primary: 201 96% 28%;
+
+    background: hsl(var(--bg));
+    color: hsl(var(--fg));
+    border: 1px solid hsl(220 14% 82%);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 3.25rem 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .resume-sheet {
+      padding: 2rem 1.25rem;
+    }
+  }
+
+  @media print {
+    .resume-sheet {
+      /* These re-scoped tokens sit on the element itself, so they beat the
+         :root print overrides. Reset them here or navy leaks into the PDF. */
+      --fg: 0 0% 0%;
+      --fg-muted: 0 0% 22%;
+      --fg-subtle: 0 0% 38%;
+      --border: 0 0% 72%;
+      --border-strong: 0 0% 45%;
+      --primary: 0 0% 0%;
+      --surface-2: 0 0% 100%;
+
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+
+  /* ---- Formal document (the /resume route) ------------------
+     Deliberately set in a serif and sized in points so it reads as a printed
+     document rather than a web page. Swap `--font-doc` for var(--font-geist-sans)
+     if a sans CV is preferred. */
+  .resume-doc {
+    --font-doc: Georgia, "Times New Roman", "Nimbus Roman", serif;
+    font-family: var(--font-doc);
+    color: hsl(var(--fg));
+  }
+  .resume-doc h1,
+  .resume-doc h2,
+  .resume-doc h3 {
+    font-family: var(--font-doc);
+    letter-spacing: 0;
+  }
+  /* Section rules: small caps heading over a hairline */
+  .resume-doc .doc-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid hsl(var(--fg) / 0.55);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.7rem;
+  }
+
+  @media print {
+    .resume-doc {
+      font-size: 10pt;
+      line-height: 1.42;
+    }
+    .resume-doc h1 {
+      font-size: 21pt;
+      line-height: 1.1;
+    }
+    .resume-doc .doc-heading {
+      font-size: 9pt;
+      /* Kept modest: wide tracking makes a PDF parser see "P R O F I L E" */
+      letter-spacing: 0.08em;
+      margin-top: 13pt;
+      margin-bottom: 6pt;
+    }
+    .resume-doc h3 {
+      font-size: 10.5pt;
+    }
+    .resume-doc .doc-meta {
+      font-size: 9pt;
+    }
+    .resume-doc .doc-body {
+      font-size: 9.5pt;
+    }
+  }
+
+  /* ---- Tinted section bands -------------------------------
+     Light mode was a flat grey page with white cards; alternating sections now
+     carry a faint hue so scrolling has variety. The alpha is low enough that
+     dark mode barely shifts (near-black swallows it), which is why these read
+     as a light-theme device. */
+  .band-primary {
+    background-color: hsl(var(--primary) / 0.055);
+  }
+  .band-violet {
+    background-color: hsl(var(--signal-violet) / 0.06);
+  }
+  .band-cyan {
+    background-color: hsl(var(--signal-cyan) / 0.055);
+  }
+  .band-amber {
+    background-color: hsl(var(--signal-amber) / 0.06);
+  }
+  .band-emerald {
+    background-color: hsl(var(--signal-emerald) / 0.055);
+  }
+
+  /* Blueprint grid — the recurring background motif */
+  .grid-field {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--grid-line) / 0.08) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.08) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* ---- Reveal-on-scroll (CSS only; JS just flips a bit) -----
+     Gated on `scripting: enabled`, so content is never hidden when there is no
+     JavaScript to reveal it again. Browsers without the query simply skip the
+     rule, which also degrades to "always visible" — the safe direction. */
+  @media (scripting: enabled) {
+    [data-reveal] {
+      opacity: 0;
+      transform: translate3d(0, var(--reveal-y, 14px), 0);
+      transition:
+        opacity var(--dur-slow) var(--ease-out),
+        transform var(--dur-slow) var(--ease-out);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+    [data-reveal="shown"] {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      will-change: auto;
+    }
+  }
+
+  /* ---- Underline that draws from the leading edge ---------- */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size var(--dur) var(--ease-out);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+@layer utilities {
+  .stack-gap {
+    @apply py-24 md:py-32;
+  }
+
+  /* Fades a scrolling rail's edges instead of hard-cutting it */
+  .mask-edges-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 4%,
+      #000 96%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 4%,
+      #000 96%,
+      transparent
+    );
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ============================================================
+   High contrast — users who ask for more get stronger separation
+   ============================================================ */
+@media (prefers-contrast: more) {
+  :root {
+    --border: 220 16% 72%;
+    --border-strong: 220 20% 52%;
+    --fg-muted: 220 18% 26%;
+    --fg-subtle: 220 16% 32%;
+  }
+  .dark {
+    --border: 220 18% 32%;
+    --border-strong: 219 20% 46%;
+    --fg-muted: 216 22% 84%;
+    --fg-subtle: 217 18% 72%;
+  }
+  /* Decorative texture only lowers legibility at this setting */
+  body::after {
+    display: none;
+  }
+  .text-etched {
+    background: none;
+    -webkit-text-fill-color: hsl(var(--fg));
+    color: hsl(var(--fg));
+  }
+}
+
+/* ============================================================
+   Reduced motion — kill transforms/animation, keep content visible
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================================
+   Print / ATS — resume must survive a black-and-white printer
+   ============================================================ */
+@media print {
+  /* Every colour token is flattened to greyscale. Any token left out here
+     would keep its screen value and print as a colour band. */
+  :root,
+  .dark {
+    --bg: 0 0% 100%;
+    --bg-deep: 0 0% 100%;
+    --surface: 0 0% 100%;
+    --surface-2: 0 0% 100%;
+    --elevated: 0 0% 100%;
+
+    --fg: 0 0% 0%;
+    --fg-muted: 0 0% 22%;
+    --fg-subtle: 0 0% 38%;
+
+    --border: 0 0% 72%;
+    --border-strong: 0 0% 45%;
+
+    --primary: 0 0% 0%;
+    --primary-fg: 0 0% 100%;
+    --primary-soft: 0 0% 20%;
+
+    --signal-emerald: 0 0% 0%;
+    --signal-emerald-ink: 0 0% 0%;
+    --signal-amber: 0 0% 0%;
+    --signal-amber-ink: 0 0% 0%;
+    --signal-rose: 0 0% 0%;
+    --signal-rose-ink: 0 0% 0%;
+    --signal-violet: 0 0% 0%;
+    --signal-violet-ink: 0 0% 0%;
+    --signal-cyan: 0 0% 0%;
+    --signal-cyan-ink: 0 0% 0%;
+
+    --ring: 0 0% 0%;
+    --glow: 0 0% 100%;
+    --grid-line: 0 0% 100%;
+    --grain-opacity: 0;
+
+    --shadow-sm: none;
+    --shadow: none;
+    --shadow-lg: none;
+  }
+
+  @page {
+    size: letter;
+    margin: 14mm 15mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Decorative layers never belong on paper */
+  body::after {
+    display: none !important;
+  }
+
+  .no-print,
+  .grid-field {
+    display: none !important;
+  }
+
+  /* Reveal animations must not leave content invisible on paper */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  article,
+  .break-avoid,
+  li {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
   }
 }

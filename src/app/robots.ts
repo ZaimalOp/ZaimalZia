@@ -1,12 +1,10 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/content/site";
 
 export default function robots(): MetadataRoute.Robots {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zaimalzia.com";
     return {
-        rules: {
-            userAgent: '*',
-            allow: '/',
-        },
-        sitemap: `${baseUrl}/sitemap.xml`,
+        rules: [{ userAgent: "*", allow: "/" }],
+        sitemap: `${SITE_URL}/sitemap.xml`,
+        host: SITE_URL,
     };
 }

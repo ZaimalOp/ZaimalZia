@@ -1,46 +1,85 @@
-"use client";
-import { motion } from "framer-motion";
-import { aboutMe } from "@/content/profile";
-import { MapPin, GraduationCap, Sparkles } from "lucide-react";
+import { GraduationCap, MapPin } from "lucide-react";
+import { narrative, beyondCode } from "@/content/narrative";
+import { identity, sections } from "@/content/site";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { accentAt } from "@/lib/accents";
+import { cn } from "@/lib/utils";
 
+/**
+ * Editorial rather than a card grid: four movements on a numbered rail, so the
+ * reader gets the philosophy in about half a minute.
+ */
 export function About() {
     return (
-        <section id="about" className="container max-w-5xl px-4 py-24 md:py-32">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-                <motion.div
-                    className="md:col-span-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    <span className="font-mono text-sm text-primary tracking-wider">01. ABOUT</span>
-                    <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">{aboutMe.title}</h2>
-                </motion.div>
+        <section id={sections.about} aria-labelledby="about-heading" className="container stack-gap">
+            <SectionHeader
+                index="01"
+                label="About"
+                title={<span id="about-heading">A researcher who ships.</span>}
+                lede="Four things worth knowing before you look at the work."
+            />
 
-                <motion.div
-                    className="md:col-span-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                        {aboutMe.bio}
-                    </p>
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                <div className="lg:col-span-8">
+                    <ol className="divide-y divide-border border-y border-border">
+                        {narrative.map((beat, i) => (
+                            <Reveal as="li" key={beat.key} delay={i * 70} className="py-9 first:pt-0 last:pb-0 md:py-11">
+                                <div className="grid gap-4 md:grid-cols-[9rem_1fr] md:gap-8">
+                                    <div className="flex items-baseline gap-3 md:flex-col md:gap-2">
+                                        <span className={cn("eyebrow tabular", accentAt(i).text)}>
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <span className="eyebrow text-fg-subtle">{beat.label}</span>
+                                    </div>
 
-                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="flex items-center gap-3 text-sm text-foreground/80">
-                            <MapPin className="w-4 h-4 text-primary" /> {aboutMe.location}
+                                    <div>
+                                        <h3 className="display text-display-sm text-fg">{beat.heading}</h3>
+                                        <p className="mt-3.5 max-w-2xl text-[0.9375rem] leading-relaxed text-fg-muted md:text-base">
+                                            {beat.body}
+                                        </p>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        ))}
+                    </ol>
+                </div>
+
+                {/* Factual sidebar */}
+                <Reveal delay={120} className="lg:col-span-4">
+                    <dl className="panel divide-y divide-border">
+                        <div className="flex items-start gap-3 p-5">
+                            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                            <div className="min-w-0">
+                                <dt className="eyebrow text-fg-subtle">Based in</dt>
+                                <dd className="mt-1.5 text-sm text-fg">{identity.location}</dd>
+                                <dd className="font-mono text-xs text-fg-subtle">{identity.timezone}</dd>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-foreground/80">
-                            <GraduationCap className="w-4 h-4 text-primary" /> {aboutMe.education}
+
+                        <div className="flex items-start gap-3 p-5">
+                            <GraduationCap className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                            <div className="min-w-0">
+                                <dt className="eyebrow text-fg-subtle">Studied</dt>
+                                <dd className="mt-1.5 text-sm text-fg">{identity.education}</dd>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-foreground/80 col-span-2">
-                            <Sparkles className="w-4 h-4 text-primary" /> Beyond code: {aboutMe.beyondCode.join(" · ")}
+
+                        <div className="p-5">
+                            <dt className="eyebrow text-fg-subtle">Beyond code</dt>
+                            <dd className="mt-3 flex flex-wrap gap-1.5">
+                                {beyondCode.map((item) => (
+                                    <span
+                                        key={item}
+                                        className="rounded-[var(--radius-sm)] border border-border bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-fg-muted"
+                                    >
+                                        {item}
+                                    </span>
+                                ))}
+                            </dd>
                         </div>
-                    </div>
-                </motion.div>
+                    </dl>
+                </Reveal>
             </div>
         </section>
     );

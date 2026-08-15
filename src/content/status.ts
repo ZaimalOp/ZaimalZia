@@ -5,6 +5,7 @@ export const professionalStatus = {
     responseTime: "2-24 hours",
     openTo: [
         "AI Software Architecture",
+        "AI Automation & Workflow Systems",
         "Technical Consulting",
         "Startup Technical Strategy",
         "Product Architecture Discussions",
@@ -12,6 +13,11 @@ export const professionalStatus = {
         "Select freelance opportunities",
         "Exceptional full-time opportunities"
     ],
+    /**
+     * Retained but deliberately not rendered. A public "not interested" list
+     * reads defensively next to the rest of the page; the positive `openTo`
+     * list already communicates fit. Kept here so the decision is reversible.
+     */
     notInterestedIn: [
         "Low-budget freelance work",
         "Generic WordPress projects",

@@ -1,74 +1,112 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
+
+import { identity, SITE_URL } from "@/content/site";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { SmoothScroll } from "@/components/providers/smooth-scroll";
-import { InitialLoader } from "@/components/providers/InitialLoader";
+import { CommandProvider } from "@/components/providers/CommandProvider";
+import { BootSequence } from "@/components/providers/BootSequence";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { CommandPalette } from "@/components/ui/CommandPalette";
+import { ShortcutsDialog } from "@/components/ui/ShortcutsDialog";
+import { StructuredData } from "@/components/seo/StructuredData";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://zaimalzia.com";
+const TITLE = `${identity.name} — AI Systems Builder, ML Researcher & Founder`;
+const DESCRIPTION =
+    "Zaimal Zia architects AI systems from research to production — multi-modal machine learning with honest evaluation and explainability, and the products built around them.";
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
-    title: {
-        default: "Zaimal Zia — AI Software Architect & Founder",
-        template: "%s | Zaimal Zia",
-    },
-    description: "Architecting AI-driven products from zero to production. Specializing in machine learning, full-stack architecture, and scalable software systems.",
-    keywords: ["AI Engineer", "Machine Learning", "Software Architect", "CTO", "Next.js", "PyTorch", "Zaimal Zia"],
-    authors: [{ name: "Zaimal Zia" }],
+    title: { default: TITLE, template: `%s — ${identity.name}` },
+    description: DESCRIPTION,
+    applicationName: `${identity.name} — Portfolio`,
+    keywords: [
+        "Zaimal Zia",
+        "AI systems builder",
+        "machine learning researcher",
+        "multi-modal machine learning",
+        "explainable AI",
+        "software architect",
+        "PyTorch",
+        "Next.js",
+        "founder",
+    ],
+    authors: [{ name: identity.name, url: SITE_URL }],
+    creator: identity.name,
+    publisher: identity.name,
+    alternates: { canonical: "/" },
     openGraph: {
-        title: "Zaimal Zia — AI Software Architect & Founder",
-        description: "Architecting AI-driven products from zero to production.",
-        url: SITE_URL,
-        siteName: "Zaimal Zia",
         type: "website",
+        siteName: identity.name,
+        url: SITE_URL,
+        title: TITLE,
+        description: DESCRIPTION,
+        locale: "en_US",
+        images: [{ url: "/og.png", width: 1200, height: 630, alt: TITLE }],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Zaimal Zia — AI Software Architect & Founder",
-        description: "Architecting AI-driven products from zero to production.",
+        title: TITLE,
+        description: DESCRIPTION,
+        creator: `@${identity.githubHandle}`,
+        images: ["/og.png"],
     },
-    robots: { index: true, follow: true },
+    icons: {
+        icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+        apple: [{ url: "/icon.png", sizes: "512x512" }],
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    },
+    category: "technology",
+    formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "#f7f9fc" },
+        { media: "(prefers-color-scheme: dark)", color: "#05070d" },
+    ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-            <head>
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "Person",
-                            name: "Zaimal Zia",
-                            url: SITE_URL,
-                            jobTitle: "AI Software Architect",
-                            knowsAbout: ["Machine Learning", "Artificial Intelligence", "Software Architecture", "PyTorch"],
-                            alumniOf: "COMSATS University Islamabad",
-                        }),
-                    }}
-                />
-            </head>
-            <body className="min-h-screen bg-background font-sans text-foreground">
-                <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:bg-primary focus:text-background focus:px-4 focus:py-2 focus:rounded-md">
+        <html
+            lang="en"
+            className={`${GeistSans.variable} ${GeistMono.variable}`}
+            suppressHydrationWarning
+        >
+            <body className="min-h-screen bg-bg font-sans text-fg">
+                <StructuredData />
+
+                <a
+                    href="#main"
+                    className="sr-only rounded-[var(--radius)] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-boot focus:bg-primary focus:px-4 focus:py-2.5 focus:text-sm focus:text-primary-fg"
+                >
                     Skip to content
                 </a>
 
                 <ThemeProvider>
-                    <InitialLoader />
-                    <ScrollProgress />
-                    <SmoothScroll>
+                    <CommandProvider>
+                        <BootSequence />
+                        <ScrollProgress />
                         <Navbar />
-                        <main id="main-content" className="flex min-h-screen flex-col bg-background">
-                            {children}
-                        </main>
+
+                        <main id="main">{children}</main>
+
                         <Footer />
-                    </SmoothScroll>
+
+                        <CommandPalette />
+                        <ShortcutsDialog />
+                    </CommandProvider>
                 </ThemeProvider>
             </body>
         </html>

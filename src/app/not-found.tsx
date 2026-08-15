@@ -1,16 +1,34 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Page not found",
+    robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
     return (
-        <main className="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-background">
-            <span className="font-mono text-sm text-primary tracking-wider">ERROR_404</span>
-            <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight">System Path Not Found</h1>
-            <p className="mt-4 text-muted-foreground max-w-md">
-                The requested route does not exist in this application. The simulation has diverged.
+        <div className="container flex min-h-[70svh] flex-col items-center justify-center py-24 text-center">
+            <p className="eyebrow text-primary">Error 404</p>
+            <h1 className="display mt-5 text-display-md text-etched">This route does not exist.</h1>
+            <p className="mt-5 max-w-md text-fg-muted">
+                The page you asked for is not part of this site. Everything lives on the home page or
+                the resume.
             </p>
-            <Link href="/" className="mt-8 px-6 py-3 text-sm font-medium text-background bg-foreground rounded-md hover:bg-primary transition-colors">
-                Return to Base
-            </Link>
-        </main>
+            <div className="mt-9 flex flex-wrap justify-center gap-3">
+                <Link
+                    href="/"
+                    className="inline-flex h-11 items-center rounded-[var(--radius)] bg-fg px-5 text-sm font-medium text-bg transition-colors hover:bg-primary hover:text-primary-fg"
+                >
+                    Back home
+                </Link>
+                <Link
+                    href="/resume"
+                    className="inline-flex h-11 items-center rounded-[var(--radius)] border border-border-strong px-5 text-sm font-medium text-fg transition-colors hover:border-primary/60 hover:text-primary"
+                >
+                    Resume
+                </Link>
+            </div>
+        </div>
     );
 }

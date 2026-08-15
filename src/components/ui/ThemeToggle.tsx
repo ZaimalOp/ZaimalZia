@@ -1,32 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
-import { motion } from "framer-motion";
 
+/**
+ * No `mounted` flag and no theme-dependent markup: both icons and both labels
+ * are rendered, and CSS picks one from the `dark` class on <html>. That keeps
+ * the server and client trees identical, so there is nothing to mismatch.
+ */
 export function ThemeToggle() {
-    const { theme, setTheme, resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => setMounted(true), []);
-    if (!mounted) return null;
-
-    const isDark = resolvedTheme === "dark" || theme === "dark";
+    const { resolvedTheme, setTheme } = useTheme();
 
     return (
         <button
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-            className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-colors"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            type="button"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="grid h-9 w-9 place-items-center rounded-[var(--radius-sm)] text-fg-muted transition-colors duration-[var(--dur)] hover:bg-fg/[0.06] hover:text-fg"
         >
-            <motion.div
-                key={isDark ? "moon" : "sun"}
-                initial={{ scale: 0.5, opacity: 0, rotate: -90 }}
-                animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                transition={{ duration: 0.2 }}
-            >
-                {isDark ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-            </motion.div>
+            <Sun className="h-4 w-4 dark:hidden" aria-hidden="true" />
+            <Moon className="hidden h-4 w-4 dark:block" aria-hidden="true" />
+
+            {/* Accessible name, swapped by the same CSS */}
+            <span className="sr-only dark:hidden">Switch to dark theme</span>
+            <span className="sr-only hidden dark:inline">Switch to light theme</span>
         </button>
     );
 }

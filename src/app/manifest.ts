@@ -1,20 +1,18 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { identity } from "@/content/site";
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: "Zaimal Zia — Portfolio",
-        short_name: "Zaimal.ZIA",
-        description: "AI Software Architect & Founder",
+        name: `${identity.name} — AI Systems Builder`,
+        short_name: identity.name,
+        description: identity.positioning,
         start_url: "/",
         display: "standalone",
-        background_color: "#0c0a09",
-        theme_color: "#f59e0b",
+        background_color: "#05070d",
+        theme_color: "#05070d",
         icons: [
-            {
-                src: "/favicon.ico",
-                sizes: "any",
-                type: "image/x-icon",
-            },
+            // Static asset — see src/og/ for the generator that produced it.
+            { src: "/icon.png", sizes: "512x512", type: "image/png", purpose: "any" },
         ],
     };
 }
