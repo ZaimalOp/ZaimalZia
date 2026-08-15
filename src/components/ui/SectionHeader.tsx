@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { IndexBadge } from "./IndexBadge";
 import { Reveal } from "./Reveal";
 
 /**
@@ -8,6 +9,7 @@ import { Reveal } from "./Reveal";
  */
 export function SectionHeader({
     index,
+    accent,
     label,
     title,
     lede,
@@ -17,6 +19,8 @@ export function SectionHeader({
 }: {
     /** Spine number. Omit for nested chapters such as the case studies. */
     index?: string;
+    /** Hue for the index badge. */
+    accent?: import("@/lib/accents").Accent;
     label: string;
     title: ReactNode;
     lede?: ReactNode;
@@ -40,7 +44,7 @@ export function SectionHeader({
                     centered && "justify-center",
                 )}
             >
-                {index && <span className="eyebrow tabular text-primary">{index}</span>}
+                {index && <IndexBadge value={index} accent={accent} />}
                 <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
                 <span className="eyebrow">{label}</span>
             </Reveal>

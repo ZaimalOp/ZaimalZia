@@ -18,24 +18,28 @@ const ACCENT = {
         border: "border-violet/60",
         badge: "border-violet/40 bg-violet/10 text-violet-ink",
         tagline: "text-violet-ink",
+        body: "bg-violet/[0.04]",
     },
     graphics: {
         text: "text-cyan",
         border: "border-cyan/60",
         badge: "border-cyan/40 bg-cyan/10 text-cyan-ink",
         tagline: "text-cyan-ink",
+        body: "bg-cyan/[0.04]",
     },
     vision: {
         text: "text-amber",
         border: "border-amber/60",
         badge: "border-amber/40 bg-amber/10 text-amber-ink",
         tagline: "text-amber-ink",
+        body: "bg-amber/[0.04]",
     },
     nlp: {
         text: "text-emerald",
         border: "border-emerald/60",
         badge: "border-emerald/40 bg-emerald/10 text-emerald-ink",
         tagline: "text-emerald-ink",
+        body: "bg-emerald/[0.04]",
     },
 } as const;
 
@@ -204,6 +208,7 @@ export function Lab() {
             <div className="container stack-gap">
                 <SectionHeader
                     index="04"
+                    accent="cyan"
                     label="Engineering archive"
                     title={<span id="lab-heading">The lab.</span>}
                     lede="Systems built to answer a specific technical question — automation, graphics, vision and language."
@@ -239,7 +244,8 @@ export function Lab() {
                                     onFocus={() => setHovered(project.id)}
                                     onBlur={() => setHovered(null)}
                                     className={cn(
-                                        "lift edge-light group flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border bg-surface",
+                                        "lift edge-light group flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border",
+                                        accent.body,
                                         active ? accent.border : "border-border",
                                     )}
                                 >

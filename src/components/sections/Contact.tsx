@@ -2,6 +2,9 @@ import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { identity, sections } from "@/content/site";
 import { professionalStatus } from "@/content/status";
 import { CopyEmail } from "@/components/ui/CopyEmail";
+import { IndexBadge } from "@/components/ui/IndexBadge";
+import { accentAt, ACCENTS } from "@/lib/accents";
+import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
 import { StatusDot } from "@/components/ui/StatusStrip";
 
@@ -33,7 +36,7 @@ export function Contact() {
                     {/* Statement */}
                     <div className="lg:col-span-7">
                         <Reveal className="flex items-center gap-3 text-fg-subtle">
-                            <span className="eyebrow tabular text-primary">08</span>
+                            <IndexBadge value="08" accent="primary" />
                             <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
                             <span className="eyebrow">Contact</span>
                         </Reveal>
@@ -83,8 +86,9 @@ export function Contact() {
                     <div className="lg:col-span-5">
                         <Reveal delay={100}>
                             <ul className="overflow-hidden rounded-[var(--radius-lg)] border border-border">
-                                {CHANNELS.map((c) => {
+                                {CHANNELS.map((c, i) => {
                                     const Icon = ICONS[c.icon];
+                                    const accent = accentAt(i);
                                     return (
                                         <li key={c.label} className="border-b border-border last:border-b-0">
                                             <a
@@ -92,9 +96,9 @@ export function Contact() {
                                                 {...(c.external
                                                     ? { target: "_blank", rel: "noreferrer noopener" }
                                                     : {})}
-                                                className="group flex items-center gap-4 bg-surface p-5 transition-colors duration-[var(--dur)] hover:bg-surface-2"
+                                                className={cn("group flex items-center gap-4 p-5 transition-colors duration-[var(--dur)]", accent.soft)}
                                             >
-                                                <Icon className="h-4 w-4 shrink-0 text-fg-subtle transition-colors group-hover:text-primary" aria-hidden="true" />
+                                                <Icon className={cn("h-4 w-4 shrink-0", accent.text)} aria-hidden="true" />
                                                 <span className="min-w-0 flex-1">
                                                     <span className="block text-sm text-fg">{c.label}</span>
                                                     <span className="mt-0.5 block truncate font-mono text-[11px] text-fg-subtle">
@@ -112,7 +116,7 @@ export function Contact() {
                             </ul>
                         </Reveal>
 
-                        <Reveal delay={180} className="mt-5 rounded-[var(--radius-lg)] border border-border bg-surface p-5">
+                        <Reveal delay={180} className={cn("mt-5 rounded-[var(--radius-lg)] border p-5", ACCENTS.emerald.soft)}>
                             <h3 className="eyebrow text-fg-subtle">Best fit</h3>
                             <ul className="mt-4 space-y-2">
                                 {professionalStatus.openTo.slice(0, 5).map((item) => (

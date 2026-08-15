@@ -4,6 +4,7 @@ import { sections } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FusionDiagram } from "./FusionDiagram";
+import { IndexBadge } from "@/components/ui/IndexBadge";
 import { accentAt } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 
@@ -69,9 +70,7 @@ export function NeuroFusionCaseStudy() {
                     <ol className="mt-8 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-border bg-border md:grid-cols-3">
                         {nf.engineeringRigor.map((item, i) => (
                             <Reveal as="li" key={item.title} delay={i * 70} className={cn("p-6 md:p-7", accentAt(i).soft)}>
-                                <span className={cn("eyebrow tabular", accentAt(i).text)}>
-                                    {String(i + 1).padStart(2, "0")}
-                                </span>
+                                <IndexBadge value={String(i + 1).padStart(2, "0")} index={i} />
                                 <h4 className="mt-4 text-base font-medium text-fg">{item.title}</h4>
                                 <p className="mt-3 text-[0.8125rem] leading-relaxed text-fg-muted">
                                     {item.description}

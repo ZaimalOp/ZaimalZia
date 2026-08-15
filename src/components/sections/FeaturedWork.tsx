@@ -4,6 +4,7 @@ import { sections } from "@/content/site";
 import { MetricGrid } from "@/components/ui/Metric";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { IndexBadge } from "@/components/ui/IndexBadge";
 import { accentAt } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,7 @@ export function FeaturedWork() {
         <section id={sections.work} aria-labelledby="work-heading" className="container stack-gap">
             <SectionHeader
                 index="03"
+                accent="emerald"
                 label="Featured work"
                 title={<span id="work-heading">Two systems, start to finish.</span>}
                 lede="One research system and one venture. Both are documented below in full — problem, architecture, evaluation and what is still open."
@@ -42,7 +44,7 @@ export function FeaturedWork() {
                             <div className="relative grid gap-8 lg:grid-cols-12 lg:gap-12">
                                 <div className="lg:col-span-7">
                                     <div className="flex items-center gap-3">
-                                        <span className={cn("eyebrow tabular", accent.text)}>{project.index}</span>
+                                        <IndexBadge value={project.index} index={i} />
                                         <span className="eyebrow text-fg-subtle">{project.kind}</span>
                                     </div>
 

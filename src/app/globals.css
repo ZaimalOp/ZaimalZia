@@ -26,8 +26,8 @@
     /* Both clear 4.5:1 on --bg so micro-labels stay legible at 10-11px.
        Darkened when --bg moved from 96% to 93%: a deeper page reduces contrast
        for dark text, and fg-subtle was already sitting close to the line. */
-    --fg-muted: 220 14% 31%;
-    --fg-subtle: 220 12% 39%;
+    --fg-muted: 220 15% 27%;
+    --fg-subtle: 220 14% 33%;
 
     /* Strengthened — at 89%/80% the structure was nearly invisible on paper. */
     --border: 220 18% 84%;
@@ -36,7 +36,7 @@
     /* A true, saturated azure rather than the muted teal it used to be —
        at this lightness it reads as an interactive colour on paper, not as
        body text. The dark theme keeps its brighter cyan. */
-    --primary: 214 98% 38%;
+    --primary: 214 98% 35%;
     --primary-fg: 0 0% 100%;
     --primary-soft: 214 92% 48%;
 
@@ -45,15 +45,15 @@
        darker one, used only where the colour becomes small text and has to
        clear 4.5:1. Forcing one value to do both is what made these muddy. */
     --signal-emerald: 158 88% 34%;
-    --signal-emerald-ink: 160 92% 23%;
+    --signal-emerald-ink: 160 94% 20%;
     --signal-amber: 32 100% 44%;
-    --signal-amber-ink: 26 100% 31%;
+    --signal-amber-ink: 26 100% 26%;
     --signal-rose: 349 88% 48%;
-    --signal-rose-ink: 349 82% 38%;
+    --signal-rose-ink: 349 84% 32%;
     --signal-violet: 264 85% 58%;
-    --signal-violet-ink: 266 82% 41%;
+    --signal-violet-ink: 266 84% 35%;
     --signal-cyan: 190 96% 38%;
-    --signal-cyan-ink: 194 96% 23%;
+    --signal-cyan-ink: 194 96% 21%;
 
     --ring: 214 98% 45%;
     --selection: 214 98% 42%;
@@ -99,8 +99,8 @@
 
     --fg: 210 32% 96%;
     /* Both clear 4.5:1 on --bg so micro-labels stay legible at 10-11px. */
-    --fg-muted: 216 18% 74%;
-    --fg-subtle: 217 14% 60%;
+    --fg-muted: 216 20% 80%;
+    --fg-subtle: 217 16% 68%;
 
     /* Strengthened so panel edges and rules actually read on near-black. */
     --border: 220 20% 21%;
@@ -115,8 +115,8 @@
     --signal-emerald-ink: 158 74% 55%;
     --signal-amber: 38 98% 64%;
     --signal-amber-ink: 38 98% 64%;
-    --signal-rose: 349 90% 70%;
-    --signal-rose-ink: 349 90% 70%;
+    --signal-rose: 349 92% 77%;
+    --signal-rose-ink: 349 92% 77%;
     --signal-violet: 266 95% 76%;
     --signal-violet-ink: 266 95% 76%;
     --signal-cyan: 186 92% 60%;
@@ -505,6 +505,72 @@
   }
   .band-emerald {
     background-color: hsl(var(--signal-emerald) / 0.055);
+  }
+
+
+  /* ---- Tinted grid cell -------------------------------------
+     Opaque base + flat colour wash. Written as real classes because
+     tailwind-merge treats two bg-* utilities as one group and keeps only
+     the last, which silently removed the opaque base. */
+  .cell-primary {
+    background-color: hsl(var(--surface));
+    background-image: linear-gradient(hsl(var(--primary) / 0.14), hsl(var(--primary) / 0.14));
+  }
+  .cell-violet {
+    background-color: hsl(var(--surface));
+    background-image: linear-gradient(hsl(var(--signal-violet) / 0.14), hsl(var(--signal-violet) / 0.14));
+  }
+  .cell-cyan {
+    background-color: hsl(var(--surface));
+    background-image: linear-gradient(hsl(var(--signal-cyan) / 0.14), hsl(var(--signal-cyan) / 0.14));
+  }
+  .cell-amber {
+    background-color: hsl(var(--surface));
+    background-image: linear-gradient(hsl(var(--signal-amber) / 0.14), hsl(var(--signal-amber) / 0.14));
+  }
+  .cell-emerald {
+    background-color: hsl(var(--surface));
+    background-image: linear-gradient(hsl(var(--signal-emerald) / 0.14), hsl(var(--signal-emerald) / 0.14));
+  }
+  .cell-rose {
+    background-color: hsl(var(--surface));
+    background-image: linear-gradient(hsl(var(--signal-rose) / 0.14), hsl(var(--signal-rose) / 0.14));
+  }
+
+
+  /* ---- Solid index badge ------------------------------------
+     Filled rather than tinted, so the number reads as an object. The ink
+     token is dark in the light theme and light in the dark theme, and --bg
+     is always its opposite — so one rule gives high contrast in both. */
+  .badge-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--bg));
+    border-color: transparent;
+  }
+  .badge-violet {
+    background-color: hsl(var(--signal-violet-ink));
+    color: hsl(var(--bg));
+    border-color: transparent;
+  }
+  .badge-cyan {
+    background-color: hsl(var(--signal-cyan-ink));
+    color: hsl(var(--bg));
+    border-color: transparent;
+  }
+  .badge-amber {
+    background-color: hsl(var(--signal-amber-ink));
+    color: hsl(var(--bg));
+    border-color: transparent;
+  }
+  .badge-emerald {
+    background-color: hsl(var(--signal-emerald-ink));
+    color: hsl(var(--bg));
+    border-color: transparent;
+  }
+  .badge-rose {
+    background-color: hsl(var(--signal-rose-ink));
+    color: hsl(var(--bg));
+    border-color: transparent;
   }
 
   /* Blueprint grid — the recurring background motif */

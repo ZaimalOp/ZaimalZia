@@ -3,7 +3,8 @@ import { narrative, beyondCode } from "@/content/narrative";
 import { identity, sections } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { accentAt } from "@/lib/accents";
+import { IndexBadge } from "@/components/ui/IndexBadge";
+import { ACCENTS } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 
 /**
@@ -15,6 +16,7 @@ export function About() {
         <section id={sections.about} aria-labelledby="about-heading" className="container stack-gap">
             <SectionHeader
                 index="01"
+                accent="primary"
                 label="About"
                 title={<span id="about-heading">A researcher who ships.</span>}
                 lede="Four things worth knowing before you look at the work."
@@ -27,9 +29,7 @@ export function About() {
                             <Reveal as="li" key={beat.key} delay={i * 70} className="py-9 first:pt-0 last:pb-0 md:py-11">
                                 <div className="grid gap-4 md:grid-cols-[9rem_1fr] md:gap-8">
                                     <div className="flex items-baseline gap-3 md:flex-col md:gap-2">
-                                        <span className={cn("eyebrow tabular", accentAt(i).text)}>
-                                            {String(i + 1).padStart(2, "0")}
-                                        </span>
+                                        <IndexBadge value={String(i + 1).padStart(2, "0")} index={i} />
                                         <span className="eyebrow text-fg-subtle">{beat.label}</span>
                                     </div>
 
@@ -47,7 +47,7 @@ export function About() {
 
                 {/* Factual sidebar */}
                 <Reveal delay={120} className="lg:col-span-4">
-                    <dl className="panel divide-y divide-border">
+                    <dl className={cn("divide-y divide-border rounded-[var(--radius-lg)] border", ACCENTS.primary.soft)}>
                         <div className="flex items-start gap-3 p-5">
                             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                             <div className="min-w-0">

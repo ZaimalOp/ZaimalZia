@@ -1,3 +1,4 @@
+import { accentAt } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 
 export interface MetricItem {
@@ -79,8 +80,9 @@ export function MetricGrid({
                 className,
             )}
         >
-            {items.map((m) => (
-                <Metric key={m.label} {...m} className="bg-surface p-4 md:p-5" />
+            {/* Each figure carries a hue so the row is not three white boxes */}
+            {items.map((m, i) => (
+                <Metric key={m.label} {...m} className={cn("p-4 md:p-5", accentAt(i).cell)} />
             ))}
         </dl>
     );

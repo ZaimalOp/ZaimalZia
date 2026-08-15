@@ -22,32 +22,38 @@ const ACCENT = {
     primary: {
         icon: "border-primary/40 bg-primary/10 text-primary",
         rule: "bg-primary/50",
-        chip: "border-primary/30 bg-primary/[0.07] text-primary",
+        card: "bg-primary/[0.035]",
+        chip: "border-primary/50 bg-primary/[0.02] text-primary",
     },
     violet: {
         icon: "border-violet/40 bg-violet/10 text-violet",
         rule: "bg-violet/50",
-        chip: "border-violet/30 bg-violet/[0.07] text-violet-ink",
+        card: "bg-violet/[0.035]",
+        chip: "border-violet/50 bg-violet/[0.02] text-violet-ink",
     },
     cyan: {
         icon: "border-cyan/40 bg-cyan/10 text-cyan",
         rule: "bg-cyan/50",
-        chip: "border-cyan/30 bg-cyan/[0.07] text-cyan-ink",
+        card: "bg-cyan/[0.035]",
+        chip: "border-cyan/50 bg-cyan/[0.02] text-cyan-ink",
     },
     amber: {
         icon: "border-amber/40 bg-amber/10 text-amber",
         rule: "bg-amber/50",
-        chip: "border-amber/30 bg-amber/[0.07] text-amber-ink",
+        card: "bg-amber/[0.035]",
+        chip: "border-amber/50 bg-amber/[0.02] text-amber-ink",
     },
     emerald: {
         icon: "border-emerald/40 bg-emerald/10 text-emerald",
         rule: "bg-emerald/50",
-        chip: "border-emerald/30 bg-emerald/[0.07] text-emerald-ink",
+        card: "bg-emerald/[0.035]",
+        chip: "border-emerald/50 bg-emerald/[0.02] text-emerald-ink",
     },
     rose: {
         icon: "border-rose/40 bg-rose/10 text-rose",
         rule: "bg-rose/50",
-        chip: "border-rose/30 bg-rose/[0.07] text-rose-ink",
+        card: "bg-rose/[0.035]",
+        chip: "border-rose/50 bg-rose/[0.02] text-rose-ink",
     },
 } as const;
 
@@ -60,6 +66,7 @@ export function TechnicalDepth() {
         <section id={sections.stack} aria-labelledby="stack-heading" className="container stack-gap">
             <SectionHeader
                 index="05"
+                accent="rose"
                 label="Technical depth"
                 title={<span id="stack-heading">What I can actually build.</span>}
                 lede="Six domains, organised by what each one lets me build end to end — from the model through to the product it ships inside."
@@ -70,7 +77,7 @@ export function TechnicalDepth() {
                     const Icon = ICONS[node.icon];
                     const accent = ACCENT[node.accent];
                     return (
-                        <Reveal key={node.id} delay={i * 70} className="bg-surface p-6 md:p-8">
+                        <Reveal key={node.id} delay={i * 70} className={cn("p-6 md:p-8", accent.card)}>
                             <div className="flex items-start gap-3.5">
                                 <span
                                     aria-hidden="true"

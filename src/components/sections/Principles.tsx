@@ -4,6 +4,7 @@ import { principles } from "@/content/principles";
 import { sections } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { IndexBadge } from "@/components/ui/IndexBadge";
 import { accentAt } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ export function Principles() {
             <div className="container stack-gap">
                 <SectionHeader
                     index="02"
+                    accent="violet"
                     label="How I think"
                     title={<span id="principles-heading">Six rules I actually follow.</span>}
                     lede="Each one is attached to the place in the work where it cost me something."
@@ -57,15 +59,14 @@ export function Principles() {
                                     <div className="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 md:grid-cols-[5rem_1fr] md:gap-x-8">
                                         {/* Each index keeps its hue whether open or not, so
                                             all six read as a palette down the list. */}
-                                        <span
+                                        <IndexBadge
+                                            value={p.index}
+                                            index={i}
                                             className={cn(
-                                                "eyebrow tabular transition-opacity duration-[var(--dur)]",
-                                                accent.text,
-                                                isOpen ? "opacity-100" : "opacity-70",
+                                                "transition-opacity duration-[var(--dur)]",
+                                                isOpen ? "opacity-100" : "opacity-75",
                                             )}
-                                        >
-                                            {p.index}
-                                        </span>
+                                        />
 
                                         <h3
                                             className={cn(

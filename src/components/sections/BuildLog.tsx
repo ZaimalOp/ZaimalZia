@@ -14,6 +14,7 @@ export function BuildLog() {
         <section id={sections.log} aria-labelledby="log-heading" className="container stack-gap">
             <SectionHeader
                 index="07"
+                accent="violet"
                 label="Build log"
                 title={<span id="log-heading">What is on the bench.</span>}
                 lede="Current state of the work, grouped by how settled it is."

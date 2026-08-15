@@ -10,6 +10,9 @@ const config: Config = {
         "./src/components/**/*.{ts,tsx}",
         "./src/app/**/*.{ts,tsx}",
         "./src/content/**/*.{ts,tsx}",
+        // src/lib/accents.ts holds the palette class strings. Without this glob
+        // Tailwind never sees them and silently generates none of those rules.
+        "./src/lib/**/*.{ts,tsx}",
     ],
     theme: {
         container: {

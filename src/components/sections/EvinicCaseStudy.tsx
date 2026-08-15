@@ -135,7 +135,7 @@ export function EvinicCaseStudy() {
 
                 <ul className="mt-8 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-border bg-border md:grid-cols-3">
                     {ev.trustSystem.map((t, i) => (
-                        <Reveal as="li" key={t.title} delay={i * 60} className="bg-surface p-5 md:p-6">
+                        <Reveal as="li" key={t.title} delay={i * 60} className={cn("p-5 md:p-6", accentAt(i).soft)}>
                             <h4 className="flex items-center gap-2.5 text-sm font-medium text-fg">
                                 <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rounded-full", accentAt(i).dot)} />
                                 {t.title}

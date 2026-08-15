@@ -17,6 +17,7 @@ export function Trajectory() {
             <div className="container stack-gap">
                 <SectionHeader
                     index="06"
+                    accent="amber"
                     label="Trajectory"
                     title={<span id="trajectory-heading">Research and ventures, in parallel.</span>}
                     lede="Three concurrent tracks — which is where the mix of research rigour and operating experience comes from."
