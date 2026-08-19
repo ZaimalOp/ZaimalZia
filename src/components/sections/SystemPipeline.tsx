@@ -79,7 +79,7 @@ export function SystemPipeline({ className }: { className?: string }) {
                                 >
                                     <span
                                         className={cn(
-                                            "h-1.5 w-1.5 rounded-full transition-all duration-[var(--dur)]",
+                                            "h-1.5 w-1.5 rounded-full transition-[transform,background-color] duration-[var(--dur)]",
                                             on ? "scale-100 bg-primary" : "scale-75 bg-border-strong",
                                         )}
                                     />

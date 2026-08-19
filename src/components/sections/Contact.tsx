@@ -106,7 +106,7 @@ export function Contact() {
                                                     </span>
                                                 </span>
                                                 <ArrowUpRight
-                                                    className="h-4 w-4 shrink-0 text-fg-subtle transition-all duration-[var(--dur)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                                                    className="h-4 w-4 shrink-0 text-fg-subtle transition-[transform,color] duration-[var(--dur)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
                                                     aria-hidden="true"
                                                 />
                                             </a>

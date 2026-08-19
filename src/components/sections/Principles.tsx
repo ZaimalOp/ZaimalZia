@@ -80,7 +80,7 @@ export function Principles() {
                                         <div
                                             id={`principle-${p.id}`}
                                             className={cn(
-                                                "col-start-2 grid transition-[grid-template-rows,opacity] duration-[var(--dur-slow)] ease-out",
+                                                "col-start-2 grid transition-[grid-template-rows,opacity] duration-[var(--dur)] ease-out",
                                                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                                             )}
                                         >

@@ -279,7 +279,7 @@ export function Lab() {
                                                 </p>
                                             </div>
                                             <ArrowUpRight
-                                                className="h-4 w-4 shrink-0 text-fg-subtle transition-all duration-[var(--dur)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                                                className="h-4 w-4 shrink-0 text-fg-subtle transition-[transform,color] duration-[var(--dur)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
                                                 aria-hidden="true"
                                             />
                                         </div>
@@ -308,7 +308,7 @@ export function Lab() {
                                         {/* Technical breakdown — revealed on hover/focus, always in the DOM for AT */}
                                         <div
                                             className={cn(
-                                                "grid transition-[grid-template-rows,opacity] duration-[var(--dur-slow)] ease-out",
+                                                "grid transition-[grid-template-rows,opacity] duration-[var(--dur)] ease-out",
                                                 active ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                                             )}
                                         >
